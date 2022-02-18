@@ -1,0 +1,43 @@
+{% extends "WebApp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+   <!-- Heading -->
+   <section class="page-section clearfix">
+    <div class="container">
+      <div class="intro">
+        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{% static 'WebApp/img/estacion-meteorologica.jpg' %}" alt="">
+        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+          <h2 class="section-heading mb-4" >            
+            <span class="section-heading-lower">PROYECTO MASHCA</span>            
+            <span class="section-heading-upper"><br></br></span>            
+          </h2>
+          <p class="mb-3"> Monitorización de estaciones meteorológicas para prevenir heladas
+          </p>
+         
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  
+    <!-- Message -->
+    <section class="page-section cta">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <div class="cta-inner text-center rounded">
+              <h2 class="section-heading mb-4">
+                <span class="section-heading-lower">OBJETIVO</span>
+                <span class="section-heading-upper"><br></br></span>                              
+              </h2>
+              <p class="mb-0">Este proyecto pretende ofrecer un soporte a los agricultores de los Andes ecuatorianos con el fin de mitigar los efectos de las heladas en los cultivos. 
+              <br></br>Para ello se utilizan las estaciones meteorológicas instaladas por el Ministerio de Ambiente de Ecuador y el Consorcio de Gobiernos Autonómicos Provinciales de Ecuador implementando la atomatización en la recogida de datos y la utilización de técnicas de Machine Learning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endblock %}
