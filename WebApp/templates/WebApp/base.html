@@ -13,16 +13,15 @@
      
 
     <!-- Styles -->
-    <link href="{% static 'WebApp/css/gestion.css' %}" rel="stylesheet">
+    <link href="{% static 'WebApp/css/gestion.css' %}" rel="stylesheet">   
+    <link href="{% static 'WebApp/css/formulario.css' %}" rel="stylesheet">   
 </head>
 
 <body>
 
-    <h1 class="site-heading text-center text-white d-none d-lg-block">
-      
-        <span class="site-heading-lower">MASHCA</span>
-      </h1>
-
+    <h1 class="site-heading text-center text-white d-none d-lg-block">      
+      <span class="site-heading-lower">MASHCA</span>
+    </h1>  
 
  <!-- Navbar -->
  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
@@ -41,6 +40,9 @@
           </li>          
           <li class="nav-item {% if request.path == '/contacto' %}active{% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
+          </li> 
+          <li class="nav-item {% if request.path == '/login' %}active{% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'Login' %}">Usuarios</a>
           </li>                 
         </ul>
       </div>
@@ -56,6 +58,9 @@
     <footer class="footer text-faded text-center py-5">    
       <div class="container">
         <p class="m-0 mbt1">En colaboración con: </p>
+        <a href="https://www.espe.edu.ec/" target="_blank">
+          <img class="image-footer image-footer-ministerio" src="../../static/WebApp/img/espe.png">
+        </a>
         <a href="https://www.ambiente.gob.ec/" target="_blank">
           <img class="image-footer image-footer-ministerio" src="../../static/WebApp/img/ministerio_ambiente.png">
         </a>

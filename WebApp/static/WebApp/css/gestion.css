@@ -1,34 +1,34 @@
 body {
-  font-family: 'Lora';
+  font-family: 'Arial';
   background: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("../img/cultivo.jpg");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Raleway';
+.titulo_pag{  
+  color: black;
+  font-weight: bold;
+  opacity: 100%;
 }
 
+.menuLogin{
+  right: 60;
+}
 .image-footer{
-  margin-right: auto;
-  margin-left: auto;
+  margin-right: 10px;
+  margin-left: 10px;
   }
 .image-footer-ministerio{
-  width: 40px;
+  width: 60px;
   height: 40px;
 }
 .image-footer-congope{
-  width: 40px;
-  height: 40px;  
+  width: 70px;
+  height:70px;  
 }
 .image-footer-viu{
-  width: 40px;
+  width: 70px;
   height: 40px;
 }
 
@@ -45,7 +45,7 @@ p {
   margin-bottom: 5rem;
   text-transform: uppercase;
   line-height: 1;
-  font-family: 'Raleway';
+  font-family: 'Arial';
 }
 
 .site-heading .site-heading-upper {
@@ -83,7 +83,6 @@ p {
   font-weight: 100;
 }
 
-
 .section-heading .section-heading-under {
   display: block;
   font-size: 1rem;
@@ -98,7 +97,7 @@ p {
 
 #mainNav {
   background-color: rgba(24, 64, 8);
-  font-family: 'Raleway';
+  font-family: 'Arial';
 }
 
 #mainNav .navbar-brand {
@@ -174,7 +173,7 @@ p {
 .cta {
   padding-top: 5rem;
   padding-bottom: 5rem;
-  background-color: rgb(242, 245, 240);
+  background-color: rgb(24, 64, 8);
 }
 
 .cta .cta-inner {
@@ -289,7 +288,7 @@ a.link:hover{
 }
 
 .section-content{
-  font-family: 'Lora' !important;
+  font-family: 'Arial' !important;
   font-size: 16px !important;
   font-weight: 400 !important;
   line-height: 28px !important;
