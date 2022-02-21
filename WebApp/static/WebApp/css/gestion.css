@@ -4,6 +4,7 @@ body {
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
+  margin-bottom: 40px;
 }
 
 .titulo_pag{  
@@ -247,10 +248,13 @@ p {
 }
 
 .footer {
+  
+   max-height: 300px;
    width: 100%;
    padding: 20px;
    background-color: rgba(255, 255, 255);      
    margin-top: 20px;
+   position: absolute;
 }
 
 
@@ -274,7 +278,7 @@ p {
 }
 
 .mbt1{
-  padding-top: 1.25rem;
+  
   color: black;
 }
 

@@ -40,10 +40,19 @@
           </li>          
           <li class="nav-item {% if request.path == '/contacto' %}active{% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
-          </li> 
-          <li class="nav-item {% if request.path == '/login' %}active{% endif %} px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="{% url 'Login' %}">Usuarios</a>
-          </li>                 
+          </li>             
+          {% if user.is_authenticated %}
+          <li>
+            <a class="nav-link text-expanded" href="{% url 'logout' %}">Cerrar sesión</a>
+          </li>
+          <li>
+            <a class="nav-link text-expanded" href="#">@{{ user.username }}</a>
+          </li>            
+          {% else %}
+          <li>
+            <a class="nav-link text-expanded" href="{% url 'login' %}">Iniciar sesión</a>
+          </li>            
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -55,7 +64,7 @@
   {% endblock %}
 
     <!-- Footer -->
-    <footer class="footer text-faded text-center py-5">    
+    <footer class="footer text-center py-5">    
       <div class="container">
         <p class="m-0 mbt1">En colaboración con: </p>
         <a href="https://www.espe.edu.ec/" target="_blank">
