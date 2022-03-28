@@ -18,7 +18,7 @@ from django.urls import path, include
 
 from WebApp import views
 
-urlpatterns = [
+urlpatterns = [       
     path('admin/', admin.site.urls),
     path('', include('WebApp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),

@@ -14,7 +14,10 @@ body {
 }
 
 .menuLogin{
-  right: 60;
+  position:absolute;  
+  right:200px;    
+  padding:0;
+  display: inline;
 }
 .image-footer{
   margin-right: 10px;

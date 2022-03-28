@@ -13,13 +13,11 @@
                 <div class="form-data">  
                     <form method="POST">
                         {% csrf_token %}                      
-                        <div class="forms-inputs mb-4"> 
-                            <label>* Usuario</label>                         
-                            <input name="username" id="username" autocomplete="off" type="text" placeholder="Nombre de usuario">                        
+                        <div class="forms-inputs mb-4">                                                   
+                            <input name="username" id="username" autocomplete="off" type="text" placeholder="* Nombre de usuario">                        
                         </div>
-                        <div class="forms-inputs mb-4"> 
-                            <label>* Contraseña</label>                                                      
-                            <input name="password" id="password" autocomplete="off" type="password" placeholder="********">                        
+                        <div class="forms-inputs mb-4">                                                                                  
+                            <input name="password" id="password" autocomplete="off" type="password" placeholder="* Contraseña">                        
                         </div>
                         <div class="mb-3"> 
                             <button type="submit" class="btn">Iniciar Sesión</button> 
