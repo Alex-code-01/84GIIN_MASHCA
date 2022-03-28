@@ -10,5 +10,8 @@ class Estacion(models.Model):
     provincia = models.CharField(_("provincia"), max_length=255)
     estado = models.CharField(_("estado"), max_length=255)
     fecha_instalacion = models.DateField(_("fecha_instalacion"))
-    latitud = models.CharField(_("latitud"), max_length=255)
-    longitud = models.CharField(_("longitud"), max_length=255)
+    latitud = models.CharField(_("latitud"), max_length=50)
+    longitud = models.CharField(_("longitud"), max_length=50)
+
+    def __str__(self):
+        return "{0} : {1}".format(self.codigo, self.nombre)
