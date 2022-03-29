@@ -14,7 +14,12 @@ def estaciones(request):
     for e in Estacion.objects.raw('SELECT * FROM Estacion_estacion'):
         #print(e.latitud, ",", e.longitud) 
         #print(ef.conv_DMS_a_DD(e.latitud), ",", ef.conv_DMS_a_DD(e.longitud))  
-        folium.Marker([ef.conv_DMS_a_DD(e.latitud), ef.conv_DMS_a_DD(e.longitud)], tooltip='Selecciona para visualizar', popup=e.nombre).add_to(m) 
+        folium.Marker(
+            [ef.conv_DMS_a_DD(e.latitud), ef.conv_DMS_a_DD(e.longitud)], 
+            tooltip='Selecciona para visualizar', 
+            popup="<a href=# class=linksEstaciones>" + e.nombre + "</a>",
+            icon=folium.Icon(icon="cloud"),          
+        ).add_to(m) 
 
     m = m._repr_html_()
     context = {
@@ -27,3 +32,6 @@ def contacto(request):
 
 def login(request):
     return render(request, "WebApp/login.html")
+
+def estacion(request):
+    return render(request, "WebApp/estacion.html")

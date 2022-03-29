@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 from django.utils.translation import gettext as _
 
@@ -12,6 +13,10 @@ class Estacion(models.Model):
     fecha_instalacion = models.DateField(_("fecha_instalacion"))
     latitud = models.CharField(_("latitud"), max_length=50)
     longitud = models.CharField(_("longitud"), max_length=50)
+
+    class Meta:
+        verbose_name='estacion'
+        verbose_name_plural='estaciones'
 
     def __str__(self):
         return "{0} : {1}".format(self.codigo, self.nombre)

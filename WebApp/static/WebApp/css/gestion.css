@@ -306,3 +306,8 @@ ul.errorlist{
   font-style: italic;
   color: red;
 }
+
+.linksEstaciones{
+  color: black !important;
+  text-decoration: none;
+}
