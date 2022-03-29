@@ -1,3 +1,4 @@
+from pyexpat import model
 from tabnanny import verbose
 from django.db import models
 from django.utils.translation import gettext as _
@@ -11,8 +12,9 @@ class Estacion(models.Model):
     provincia = models.CharField(_("provincia"), max_length=255)
     estado = models.CharField(_("estado"), max_length=255)
     fecha_instalacion = models.DateField(_("fecha_instalacion"))
-    latitud = models.CharField(_("latitud"), max_length=50)
-    longitud = models.CharField(_("longitud"), max_length=50)
+    latitud = models.CharField(_("latitud"), max_length=50, default="")
+    longitud = models.CharField(_("longitud"), max_length=50, default="")
+    formato = models.CharField(_("formato"), max_length=50, default="dms")
 
     class Meta:
         verbose_name='estacion'
