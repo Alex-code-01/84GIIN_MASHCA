@@ -36,7 +36,7 @@
           <li class="nav-item {% if request.path == '/' %}active{% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'Home' %}">Inicio</a>
           </li>
-          <li class="nav-item {% if request.path == '/estaciones' %}active{% endif %} px-lg-4">
+          <li class="nav-item {% if request.path|slice:':11' == '/estaciones' %}active{% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'Estaciones' %}">Estaciones</a>
           </li>          
           <li class="nav-item {% if request.path == '/contacto' %}active{% endif %} px-lg-4">
