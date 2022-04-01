@@ -10,9 +10,9 @@
     <div class="card" style="width: 24rem;">        
         <div class="card-body">
             <br>
-            <h1 class="titulo_pag" style="text-align: center;">{{ estacion.codigo}}</h1>   
+            <h1 class="titulo_pag" style="text-align: center;">{{estacion.codigo}}</h1>   
             <br>           
-            <h4 style="text-align: center;">{{ estacion.nombre }}</h4>  
+            <h4 style="text-align: center;">{{estacion.nombre }}</h4>  
             <br>   
             <p class="card-text">                        
                 Provincia: {{estacion.provincia}}
@@ -27,8 +27,12 @@
                 Longitud: {{estacion.longitud}}
             </p>
             <br>
-        <button type="button" class="btn btn-success">Datos Históricos</button>
-        <button type="button" class="btn btn-success">Predicciones</button>        
+            <a href="#">
+                <button type="button" class="btn btn-success">Datos Históricos</button>
+            </a>    
+            <a href="#">
+                <button type="button" class="btn btn-success">Predicciones</button>        
+            </a>            
         </div>
     </div>
 </div>

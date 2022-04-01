@@ -5,8 +5,9 @@ from Estacion.models import Estacion, FORMATO_CHOICES
 from Estacion.modules import estacion_funciones as ef
 # Create your views here.
 
-def estaciones(request):    
-    m = folium.Map(location=[-1.671743709620801, -78.660423157757], zoom_start=6.5)
+def estaciones(request):  
+    Ecuador = [-1.4526567126141714, -78.41862277481742]  
+    m = folium.Map(location=Ecuador, zoom_start=6.5)
     for e in Estacion.objects.raw('SELECT * FROM Estacion_estacion'):
         #degree, minutes, seconds
         if e.formato==FORMATO_CHOICES[0][0]:
@@ -36,3 +37,6 @@ def estacion(request, codigo):
         "estacion": estacion
     }
     return render(request, "estaciones/estacion.html", context)
+
+def historico(request):    
+    return render(request, "estaciones/historico.html")
