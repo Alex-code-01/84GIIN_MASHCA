@@ -38,5 +38,16 @@ def estacion(request, codigo):
     }
     return render(request, "estaciones/estacion.html", context)
 
-def historico(request):    
-    return render(request, "estaciones/historico.html")
+def historico(request, codigo):   
+    estacion = Estacion.objects.get(codigo=codigo)
+    context={
+        "estacion": estacion
+    } 
+    return render(request, "estaciones/historico.html", context)
+
+def prediccion(request, codigo):   
+    estacion = Estacion.objects.get(codigo=codigo)
+    context={
+        "estacion": estacion
+    } 
+    return render(request, "estaciones/prediccion.html", context)
