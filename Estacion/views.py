@@ -16,8 +16,10 @@ def estaciones(request):
         #degree decimal
         elif e.formato==FORMATO_CHOICES[1][0]:
             lat = float(e.latitud)
-            long = float(e.longitud)
-        popup="<b>Estación: </b><br><a href="+"estacion/"+str(e.codigo)+" target=_top class=linksEstaciones>" + e.nombre + "</a><br>" + e.codigo
+            long = float(e.longitud)    
+        popup="<b>Estación: </b><br><a href=estacion/{0} target=_top class=linksEstaciones>{1}</a><br>{0}".format(e.codigo, e.nombre)                        
+        #popup="<b>Estación: </b><br><a href=\"{{ url 'Estacion' {0} }}\" target=_top class=linksEstaciones>{1}</a><br>{0}".format(e.codigo, e.nombre)        
+        print(popup)
         folium.Marker(
             [lat, long], 
             tooltip='Selecciona para visualizar', 
