@@ -5,12 +5,12 @@
 
 ## Herramientas
 
--Django: pip install django
--Folium: pip install folium
--Bootstrap
--MySQL
--Visual Studio Code
--Git
+- Django: pip install django
+- Folium: pip install folium
+- Bootstrap
+- MySQL
+- Visual Studio Code
+- Git
 
 ## Comandos
 
