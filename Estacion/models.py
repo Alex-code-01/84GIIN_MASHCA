@@ -26,3 +26,15 @@ class Estacion(models.Model):
 
     def __str__(self):
         return "{0} : {1}".format(self.codigo, self.nombre)
+
+class DatosCalamaca(models.Model):
+    fecha = models.DateTimeField(_("Fecha"))
+    temp_media = models.FloatField(_("Temperatura"))
+    temp_max = models.FloatField(_("TMax"))
+    temp_min = models.FloatField(_("TMin"))
+    humedad = models.FloatField(_("Humedad"))
+    h_r_max = models.FloatField(_("H_R Max"))
+    h_m_min = models.FloatField(_("H_M Min"))
+    precipitacion = models.FloatField(_("Precipitacion"))
+    direccion = models.FloatField(_("Direccion"))
+    velocidad = models.FloatField(_("Velocidad"))
