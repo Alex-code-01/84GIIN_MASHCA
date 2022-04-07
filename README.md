@@ -29,8 +29,8 @@ python manage.py migrate
 ```
 ./manage.py dumpdata --output data.json
 ```
-Se abre el archivo JSON y se guarda con encodding UTF-8
-Se modifica la configuración de la Base de Datos en settings.py
+- Se abre el archivo JSON y se guarda con encodding UTF-8
+- Se modifica la configuración de la Base de Datos en settings.py
 ```
 python manage.py migrate
 ./manage.py loaddata data.json
