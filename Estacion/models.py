@@ -3,13 +3,13 @@ from tabnanny import verbose
 from django.db import models
 from django.utils.translation import gettext as _
 
-FORMATO_CHOICES = [
-    ('DMS', 'Degrees Minutes Seconds'),
-    ('DD', 'Degrees Decimal')
-]
-
 # Create your models here.
 class Estacion(models.Model):
+
+    class FormatoChoices(models.TextChoices):
+        DEG_MIN_SEC = 'DMS', _('Degrees Minutes Seconds')
+        DEG_DEC = 'DD', _('Degrees Decimal')
+
     codigo = models.CharField(_("codigo"), max_length=255)
     nombre = models.CharField(_("nombre"), max_length=255)
     tipo = models.CharField(_("tipo"), max_length=255)
@@ -18,7 +18,7 @@ class Estacion(models.Model):
     fecha_instalacion = models.DateField(_("fecha_instalacion"))
     latitud = models.CharField(_("latitud"), max_length=50)
     longitud = models.CharField(_("longitud"), max_length=50)
-    formato = models.CharField(_("formato"), max_length=50, choices=FORMATO_CHOICES, default=FORMATO_CHOICES[0][0])
+    formato = models.CharField(_("formato"), max_length=50, choices=FormatoChoices.choices, default=FormatoChoices.DEG_MIN_SEC)
 
     class Meta:
         verbose_name='estacion'
