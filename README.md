@@ -7,6 +7,7 @@
 
 - Django: pip install django
 - Folium: pip install folium
+- ChartJS: pip install django-chartjs
 - Bootstrap
 - MySQL
 - Visual Studio Code

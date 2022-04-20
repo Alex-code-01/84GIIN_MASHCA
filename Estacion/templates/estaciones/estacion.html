@@ -7,35 +7,38 @@
 <p></p>
 <div class="container mt-5">
     <div class="row d-flex justify-content-center">
-    <div class="card" style="width: 24rem;">        
-        <div class="card-body">
-            <br>
-            <h1 class="titulo_pag" style="text-align: center;">{{estacion.codigo}}</h1>   
-            <br>           
-            <h4 style="text-align: center;">{{estacion.nombre }}</h4>  
-            <br>   
-            <p class="card-text">                        
-                Provincia: {{estacion.provincia}}
+        <div class="card" style="width: 24rem;">        
+            <div class="card-body">
                 <br>
-                Tipo: {{estacion.tipo}}
+                <h1 class="titulo_pag" style="text-align: center;">{{estacion.codigo}}</h1>   
+                <br>           
+                <h4 style="text-align: center;">{{estacion.nombre }}</h4>  
+                <br>   
+                <p class="card-text">                        
+                    Provincia: {{estacion.provincia}}
+                    <br>
+                    Tipo: {{estacion.tipo}}
+                    <br>
+                    Estado: {{estacion.estado}}
+                    <br>
+                    Fecha de instalacion: {{estacion.fecha_instalacion}}
+                    <br>
+                    Latitud: &nbsp &nbsp{{estacion.latitud}}
+                    <br>                  
+                    Longitud: {{estacion.longitud}}                
+                </p>
                 <br>
-                Estado: {{estacion.estado}}
-                <br>
-                Fecha de instalacion: {{estacion.fecha_instalacion}}
-                <br>
-                Latitud: &nbsp &nbsp{{estacion.latitud}}
-                <br>                  
-                Longitud: {{estacion.longitud}}                
-            </p>
-            <br>
-            <a href="{{estacion.codigo}}/historico">
-                <button type="button" class="btn btn-success">Datos Históricos</button>
-            </a>    
-            <a href="{{estacion.codigo}}/prediccion">
-                <button type="button" class="btn btn-success">Predicciones</button>        
-            </a>            
+                <a href="{{estacion.codigo}}/historico">
+                    <button type="button" class="btn btn-success">Datos Históricos</button>
+                </a>    
+                <a href="{{estacion.codigo}}/prediccion">
+                    <button type="button" class="btn btn-success">Predicciones</button>        
+                </a> 
+                <a href="{{estacion.codigo}}/prediccion">
+                    <button type="button" class="btn btn-success">Predicciones</button>        
+                </a>                        
+            </div>
         </div>
     </div>
-</div>
 </div>
 {% endblock %}
