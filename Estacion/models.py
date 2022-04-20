@@ -4,6 +4,10 @@ from django.db import models
 from django.utils.translation import gettext as _
 
 # Create your models here.
+
+def estacion_directory_path(instance, filename):
+    return 'estacion_{0}/{1}'.format(instance.codigo, filename)
+    
 class Estacion(models.Model):
 
     class FormatoChoices(models.TextChoices):
@@ -19,6 +23,7 @@ class Estacion(models.Model):
     latitud = models.CharField(_("latitud"), max_length=50)
     longitud = models.CharField(_("longitud"), max_length=50)
     formato = models.CharField(_("formato"), max_length=50, choices=FormatoChoices.choices, default=FormatoChoices.DEG_MIN_SEC)
+    archivo_csv = models.FileField(_("archivo_csv"), upload_to=estacion_directory_path)
 
     class Meta:
         verbose_name='estacion'
