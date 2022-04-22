@@ -6,27 +6,25 @@
 
 <p></p>
 
-
-{% if estacion.archivo_csv %}
 <div class="container mt-5">
     <div class="row d-flex justify-content-center">
         <div class="col-md-10">                        
             <div class="card px-5 py-5" style="min-height: 55rem;">
                 <h1 class="titulo_pag"> Histórico </h1>
                 <h5>{{ estacion.nombre }}</h5>
-                <p>La estación tiene datos</p>
-                <canvas id="grafico_temp" width="500" height="400"></canvas>
+                {% if estacion.archivo_csv %}                    
+                    <canvas id="grafico_temp" width="500" height="400"></canvas>
+                {% else %}
+                    <p>La estación no tiene datos</p>
+                {% endif %}                
+                <a href="{% url 'Estacion' estacion.codigo %}">
+                    <button type="button" class="btn btn-success">Volver a la estación</button>        
+                </a>
             </div>
         </div>
     </div>
 </div>
-{% else %}
-    <p>La estación no tiene datos</p>
-{% endif %}
-
-<a href="{% url 'Estacion' estacion.codigo %}">
-    <button type="button" class="btn btn-success">Volver a la estación</button>        
-</a> 
+ 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
 <script>    

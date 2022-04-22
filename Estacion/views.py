@@ -45,16 +45,14 @@ def estacion(request, codigo):
     return render(request, "estaciones/estacion.html", context)
 
 def historico(request, codigo):   
-    estacion = Estacion.objects.get(codigo=codigo)
+    estacion = Estacion.objects.get(codigo=codigo)  
     date_list = []
-    values_list = []
+    values_list = []      
     if estacion.archivo_csv:
         data = leer_archivo_csv(estacion.archivo_csv)
         date_list = list(data['Fecha'])
-        temp_list = list(data['Temperatura'])
-        for item in temp_list:  
-            item = item.replace(",", ".")              
-            values_list.append(float(item))        
+        values_list = seleccionar_data(data, 'Temperatura', float)
+
     else: 
         print("No hay datos históricos de la estación")
     context={
@@ -89,3 +87,14 @@ def leer_archivo_csv(nombre_archivo):
     missing_values = len(null_data)
     
     return data
+
+def seleccionar_data(data, values, type):
+    values_list = []
+    list_values = list(data[values])
+    if type == float:        
+        for item in list_values:
+            item = item.replace(",", ".")
+            values_list.append(float(item))
+    return values_list
+    
+            
