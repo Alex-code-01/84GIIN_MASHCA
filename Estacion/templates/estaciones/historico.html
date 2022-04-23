@@ -12,8 +12,17 @@
             <div class="card px-5 py-5" style="min-height: 55rem;">
                 <h1 class="titulo_pag"> Histórico </h1>
                 <h5>{{ estacion.nombre }}</h5>
-                {% if estacion.archivo_csv %}                    
-                    <canvas id="grafico_temp" width="500" height="400"></canvas>
+                {% if estacion.archivo_csv %} 
+                    <label for="start">Fecha:</label> 
+                    <input type="date" id="start" name="trip-start" value="2022-04-27" min="2010-01-01" max="2022-04-27">
+                    <br>
+                    <select name="select">                        
+                        {% for item in parameters_list %}
+                            <option> {{ item }} </option>
+                        {% endfor %}
+                    </select>                                     
+                    
+                    <canvas id="grafico_temp" width="500" height="400"></canvas>                    
                 {% else %}
                     <p>La estación no tiene datos</p>
                 {% endif %}                

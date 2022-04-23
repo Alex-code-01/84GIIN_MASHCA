@@ -47,18 +47,21 @@ def estacion(request, codigo):
 def historico(request, codigo):   
     estacion = Estacion.objects.get(codigo=codigo)  
     date_list = []
-    values_list = []      
+    values_list = []
+    parameters_list = []      
     if estacion.archivo_csv:
         data = leer_archivo_csv(estacion.archivo_csv)
         date_list = list(data['Fecha'])
         values_list = seleccionar_data(data, 'Temperatura', float)
+        parameters_list = list(data.columns[1:])        
 
     else: 
         print("No hay datos históricos de la estación")
     context={
         "estacion": estacion,
         "date_list": date_list,
-        "values_list": values_list
+        "values_list": values_list,
+        "parameters_list": parameters_list
     } 
     return render(request, "estaciones/historico.html", context)
 
@@ -96,5 +99,3 @@ def seleccionar_data(data, values, type):
             item = item.replace(",", ".")
             values_list.append(float(item))
     return values_list
-    
-            
