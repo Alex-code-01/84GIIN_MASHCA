@@ -48,12 +48,16 @@ def historico(request, codigo):
     estacion = Estacion.objects.get(codigo=codigo)  
     date_list = []
     values_list = []
-    parameters_list = []      
+    parameters_list = []  
+    parameter = None    
     if estacion.archivo_csv:
+        print(request.GET['select'])
+            
+        parameter = request.GET.get('select', 'Temperatura')        
         data = leer_archivo_csv(estacion.archivo_csv)
         date_list = list(data['Fecha'])
-        values_list = seleccionar_data(data, 'Temperatura', float)
-        parameters_list = list(data.columns[1:])        
+        values_list = seleccionar_data(data, parameter, float)
+        parameters_list = list(data.columns[1:])                
 
     else: 
         print("No hay datos históricos de la estación")
@@ -61,7 +65,8 @@ def historico(request, codigo):
         "estacion": estacion,
         "date_list": date_list,
         "values_list": values_list,
-        "parameters_list": parameters_list
+        "parameters_list": parameters_list,
+        "selected": parameter
     } 
     return render(request, "estaciones/historico.html", context)
 
@@ -76,8 +81,7 @@ def leer_archivo_csv(nombre_archivo):
     global rows, columns, data, missing_values, my_file
     
     current_dir = os.getcwd()
-    nombre_archivo = "{0}{1}{2}".format(current_dir, '\media\\', nombre_archivo)
-    print("Archivo:", nombre_archivo)
+    nombre_archivo = "{0}{1}{2}".format(current_dir, '\media\\', nombre_archivo)    
     
     my_file = pd.read_csv(nombre_archivo)
         
