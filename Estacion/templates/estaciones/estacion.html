@@ -28,10 +28,10 @@
                     Longitud: {{estacion.longitud}}                
                 </p>
                 <br>
-                <a href="{{estacion.codigo}}/historico">
+                <a href="{% url 'Historico' codigo=estacion.codigo %}">
                     <button type="button" class="btn btn-success">Datos Históricos</button>
                 </a>    
-                <a href="{{estacion.codigo}}/prediccion">
+                <a href="{% url 'Prediccion' estacion.codigo %}">
                     <button type="button" class="btn btn-success">Predicciones</button>        
                 </a>                                        
             </div>

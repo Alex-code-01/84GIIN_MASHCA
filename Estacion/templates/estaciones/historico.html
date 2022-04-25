@@ -12,13 +12,13 @@
             <div class="card px-5 py-5" style="min-height: 55rem;">
                 <h1 class="titulo_pag"> Histórico </h1>
                 <h5>{{ estacion.nombre }}</h5>
-                {% if estacion.archivo_csv %} 
-                    <label for="start">Fecha:</label> 
-                    <input type="date" id="start" name="trip-start" value="2022-04-27" min="2010-01-01" max="2022-04-27">
-                    <br>
-                    <form method="GET" action="{% url 'Historico' estacion.codigo %}">
-                        {% csrf_token %}
-                        <select name="select">                        
+                {% if estacion.archivo_csv %}                     
+                    <form method="GET" action="{% url 'Historico' estacion.codigo %}">                        
+                        <label for="start">Desde: </label> 
+                        <input type="date" id="desde" name="desde" value={{ desde }}  min="2010-01-01" max="2100-01-01">
+                        <label for="start">Hasta: </label> 
+                        <input type="date" id="hasta" name="hasta" value={{ hasta }} min="2010-01-01" max="2100-01-01">                        
+                        <select name="select" id="select">                        
                             {% for item in parameters_list %}
                                 {% if item == selected %}
                                     <option selected> {{ item }} </option>                                
@@ -27,7 +27,7 @@
                                 {% endif %}
                             {% endfor %}
                         </select>  
-                        <button type="submit" class="btn btn-success">Buscar</button>                                           
+                        <button type="submit" class="btn btn-success" id="buscar">Buscar</button>                                           
                     </form>                    
                     <canvas id="grafico_temp" width="500" height="400"></canvas>                    
                 {% else %}
@@ -63,4 +63,5 @@
         }
     });
 </script>
+
 {% endblock %}

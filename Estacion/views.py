@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 import os
 import pandas as pd
 import folium
+from datetime import date, datetime
 from Estacion.models import Estacion
 from Estacion.modules import estacion_funciones as ef
 
@@ -49,15 +50,18 @@ def historico(request, codigo):
     date_list = []
     values_list = []
     parameters_list = []  
-    parameter = None    
-    if estacion.archivo_csv:
-        print(request.GET['select'])
-            
-        parameter = request.GET.get('select', 'Temperatura')        
-        data = leer_archivo_csv(estacion.archivo_csv)
-        date_list = list(data['Fecha'])
-        values_list = seleccionar_data(data, parameter, float)
-        parameters_list = list(data.columns[1:])                
+    parameter = None
+    desde = None
+    hasta = None
+    if estacion.archivo_csv:                                          
+        data = leer_archivo_csv(estacion.archivo_csv) #datos del CSV
+        parameters_list = list(data.columns[1:]) #lista de los parametros        
+        desde = request.GET.get('desde', str(datetime.today().strftime('%Y-%m-%d')))        
+        hasta = request.GET.get('hasta', str(datetime.today().strftime('%Y-%m-%d')))                         
+        date_list = lista_fechas(desde, hasta, list(data['Fecha']))
+        print(date_list)        
+        parameter = request.GET.get('select', parameters_list[0]) #se obtiene el resultado del objeto select (por defecto se selecciona el primer parametro)
+        values_list = seleccionar_data(data, parameter, float) #se obtienen los datos requeridos             
 
     else: 
         print("No hay datos históricos de la estación")
@@ -66,7 +70,9 @@ def historico(request, codigo):
         "date_list": date_list,
         "values_list": values_list,
         "parameters_list": parameters_list,
-        "selected": parameter
+        "selected": parameter,
+        "desde": desde,
+        "hasta": hasta,
     } 
     return render(request, "estaciones/historico.html", context)
 
@@ -103,3 +109,17 @@ def seleccionar_data(data, values, type):
             item = item.replace(",", ".")
             values_list.append(float(item))
     return values_list
+
+def formato_fecha(fecha):
+    formato = "%d/%m/%Y %H:%M:%S"
+    return datetime.strptime(fecha, formato)
+
+def lista_fechas(desde, hasta, fechas):
+    fechas_select = []
+    desde = datetime.strptime(desde, '%Y-%m-%d')
+    hasta = datetime.strptime(hasta, '%Y-%m-%d')
+    for fecha in fechas:     
+        fecha = datetime.strptime(fecha, '%d/%m/%Y %H:%M:%S')   
+        if fecha > desde and fecha < hasta:
+            fechas_select.append(fecha.strftime('%d/%m/%Y %H:%M:%S'))
+    return fechas_select
