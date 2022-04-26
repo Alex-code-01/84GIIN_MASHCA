@@ -6,14 +6,20 @@
 ## Herramientas
 
 - Django: pip install django
+- Python venv: pip install virtualenv
 - Folium: pip install folium
 - ChartJS: pip install django-chartjs
-- Bootstrap
-- MySQL
+- Bootstrap: pip install django-bootstrap-v5
+- MySQL: pip install mysqlclient
 - Visual Studio Code
 - Git
 
 ## Comandos
+
+#### Para activar el entorno virtual:
+```
+venv\Scripts\activate
+```
 
 #### Para ejecutar el proyecto: 
 ```

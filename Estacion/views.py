@@ -58,8 +58,7 @@ def historico(request, codigo):
         parameters_list = list(data.columns[1:]) #lista de los parametros        
         desde = request.GET.get('desde', str(datetime.today().strftime('%Y-%m-%d')))        
         hasta = request.GET.get('hasta', str(datetime.today().strftime('%Y-%m-%d')))                         
-        date_list = lista_fechas(desde, hasta, list(data['Fecha']))
-        print(date_list)        
+        date_list = lista_fechas(desde, hasta, list(data['Fecha']))               
         parameter = request.GET.get('select', parameters_list[0]) #se obtiene el resultado del objeto select (por defecto se selecciona el primer parametro)
         values_list = seleccionar_data(data, parameter, float) #se obtienen los datos requeridos             
 
@@ -109,10 +108,6 @@ def seleccionar_data(data, values, type):
             item = item.replace(",", ".")
             values_list.append(float(item))
     return values_list
-
-def formato_fecha(fecha):
-    formato = "%d/%m/%Y %H:%M:%S"
-    return datetime.strptime(fecha, formato)
 
 def lista_fechas(desde, hasta, fechas):
     fechas_select = []
