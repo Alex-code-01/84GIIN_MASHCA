@@ -1,3 +1,5 @@
+from codecs import strict_errors
+import unittest
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
@@ -61,8 +63,12 @@ def historico(request, codigo):
         hasta = request.GET.get('hasta', str(datetime.today().strftime('%Y-%m-%d')))                                 
         parameter = request.GET.get('select', parameters_list[0]) #se obtiene el resultado del objeto select (por defecto se selecciona el primer parametro)
         
-        date_list = lista_fechas(desde, hasta, list(data['Fecha']))               
-        values_list = seleccionar_data(data, parameter, float) #se obtienen los datos requeridos             
+        data_selected = select_data(data, parameter, desde, hasta)
+
+        date_list = list(data_selected.iloc[:, 0])
+        values_list = list(data_selected.iloc[:, 1])
+        values_list = convert_data(values_list, float)
+        print(data_selected)
 
     else: 
         print("No hay datos históricos de la estación")
@@ -98,21 +104,39 @@ def leer_archivo_csv(nombre_archivo):
     
     return data
 
-def seleccionar_data(data, values, type):
-    values_list = []
-    list_values = list(data[values])
-    if type == float:        
-        for item in list_values:
-            item = item.replace(",", ".")
-            values_list.append(float(item))
-    return values_list
+def select_data(data, parameter, since, until):
+    date_list = []
+    parameter_list = []
+    since = str_to_date(since, '%Y-%m-%d')
+    until = str_to_date(until, '%Y-%m-%d')
+    
+    data = data[[data.columns[0], parameter]]
 
-def lista_fechas(desde, hasta, fechas):
-    fechas_select = []
-    desde = datetime.strptime(desde, '%Y-%m-%d')
-    hasta = datetime.strptime(hasta, '%Y-%m-%d')
-    for fecha in fechas:     
-        fecha = datetime.strptime(fecha, '%d/%m/%Y %H:%M:%S')   
-        if fecha > desde and fecha < hasta:
-            fechas_select.append(fecha.strftime('%d/%m/%Y %H:%M:%S'))
-    return fechas_select
+    for item in range(len(data)):
+        date = data[data.columns[0]][item]
+        date = str_to_date(date, '%d/%m/%Y %H:%M:%S')
+        if date > since and date < until:
+            date_list.append(date_to_str(date, '%d/%m/%Y %H:%M:%S'))
+            parameter_list.append(data[parameter][item])
+    
+    result = {data.columns[0]: date_list, parameter: parameter_list}
+    df = pd.DataFrame(result)    
+    return df
+
+def convert_data(data, type):    
+    result = []
+    if type == float:        
+        for item in data:
+            item = item.replace(",", ".")
+            result.append(float(item))
+    return result
+
+def str_to_date(date, format):
+    return datetime.strptime(date, format)
+
+def date_to_str(date, format):
+    return date.strftime(format)
+
+
+
+    
