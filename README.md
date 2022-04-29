@@ -15,7 +15,7 @@
 - Git
 
 ## Comandos
-#### Para activar el entorno virtual:
+#### Para descargar las dependencias:
 ```
 pip install -r requirements.txt
 ```
