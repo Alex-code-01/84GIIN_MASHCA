@@ -15,7 +15,10 @@
 - Git
 
 ## Comandos
-
+#### Para activar el entorno virtual:
+```
+pip install -r requirements.txt
+```
 #### Para activar el entorno virtual:
 ```
 venv\Scripts\activate
