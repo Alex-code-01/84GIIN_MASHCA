@@ -56,10 +56,12 @@ def historico(request, codigo):
     if estacion.archivo_csv:                                          
         data = leer_archivo_csv(estacion.archivo_csv) #datos del CSV
         parameters_list = list(data.columns[1:]) #lista de los parametros        
+        
         desde = request.GET.get('desde', str(datetime.today().strftime('%Y-%m-%d')))        
-        hasta = request.GET.get('hasta', str(datetime.today().strftime('%Y-%m-%d')))                         
-        date_list = lista_fechas(desde, hasta, list(data['Fecha']))               
+        hasta = request.GET.get('hasta', str(datetime.today().strftime('%Y-%m-%d')))                                 
         parameter = request.GET.get('select', parameters_list[0]) #se obtiene el resultado del objeto select (por defecto se selecciona el primer parametro)
+        
+        date_list = lista_fechas(desde, hasta, list(data['Fecha']))               
         values_list = seleccionar_data(data, parameter, float) #se obtienen los datos requeridos             
 
     else: 
@@ -84,17 +86,13 @@ def prediccion(request, codigo):
 
 def leer_archivo_csv(nombre_archivo):    
     global rows, columns, data, missing_values, my_file
-    
     current_dir = os.getcwd()
     nombre_archivo = "{0}{1}{2}".format(current_dir, '\media\\', nombre_archivo)    
-    
     my_file = pd.read_csv(nombre_archivo)
-        
     data = pd.DataFrame(data=my_file, index=None)
 
     rows = len(data.axes[0])
     columns = len(data.axes[1])
-
     null_data = data[data.isnull().any(axis=1)]
     missing_values = len(null_data)
     
