@@ -47,20 +47,19 @@ def estacion(request, codigo):
 def historico(request, codigo):   
     estacion = Estacion.objects.get(codigo=codigo)  
     date_list,  values_list, parameters_list  = [], [], []     
-    parameter, desde, hasta = None, None, None   
+    parameter, since, until = None, None, None   
     if estacion.archivo_csv:                                          
         data = read_csv_file(estacion.archivo_csv) #datos del CSV
         parameters_list = list(data.columns[1:]) #lista de los parametros        
         
-        desde = request.GET.get('desde', date_to_str(datetime.today(), '%Y-%m-%d'))        
-        hasta = request.GET.get('hasta', date_to_str(datetime.today(), '%Y-%m-%d'))                                 
+        since = request.GET.get('desde', date_to_str(datetime.today(), '%Y-%m-%d'))        
+        until = request.GET.get('hasta', date_to_str(datetime.today(), '%Y-%m-%d'))                                 
         parameter = request.GET.get('select', parameters_list[0]) #se obtiene el resultado del objeto select (por defecto se selecciona el primer parametro)
         
-        data_selected = select_data(data, parameter, desde, hasta)
+        data_selected = select_data(data, parameter, since, until)
 
-        date_list = list(data_selected.iloc[:, 0])
-        values_list = list(data_selected.iloc[:, 1])
-        values_list = convert_data(values_list, float)        
+        date_list = data_selected[0]        
+        values_list = convert_data(data_selected[1], float)        
 
     else: 
         print("No hay datos históricos de la estación")
@@ -70,8 +69,8 @@ def historico(request, codigo):
         "values_list": values_list,
         "parameters_list": parameters_list,
         "selected": parameter,
-        "desde": desde,
-        "hasta": hasta,
+        "desde": since,
+        "hasta": until,
     } 
     return render(request, "estaciones/historico.html", context)
 
@@ -91,8 +90,7 @@ def read_csv_file(nombre_archivo):
     return data
 
 def select_data(data, parameter, since, until):
-    date_list = []
-    parameter_list = []
+    date_list, parameter_list = [], []     
     since = str_to_date(since, '%Y-%m-%d')
     until = str_to_date(until, '%Y-%m-%d')    
     data = data[[data.columns[0], parameter]]
@@ -102,9 +100,7 @@ def select_data(data, parameter, since, until):
             date_list.append(date_to_str(date, '%d/%m/%Y %H:%M:%S'))
             parameter_list.append(data[parameter][item])
 
-    result = {data.columns[0]: date_list, parameter: parameter_list}
-    df = pd.DataFrame(result)    
-    return df
+    return date_list, parameter_list
 
 def convert_data(data, type):    
     result = []
