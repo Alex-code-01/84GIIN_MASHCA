@@ -18,7 +18,7 @@
                         <input type="date" id="desde" name="desde" value={{ desde }}  min="2010-01-01" max="2100-01-01">
                         <label for="start">Hasta: </label> 
                         <input type="date" id="hasta" name="hasta" value={{ hasta }} min="2010-01-01" max="2100-01-01">                        
-                        <select name="select" id="select">                        
+                        <select name="param" id="param">                        
                             {% for item in parameters_list %}
                                 {% if item == selected %}
                                     <option selected> {{ item }} </option>                                
