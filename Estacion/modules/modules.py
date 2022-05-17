@@ -27,9 +27,8 @@ def read_csv_file(nombre_archivo):
     global rows, columns, data, missing_values, my_file
     current_dir = os.getcwd()
     nombre_archivo = "{0}{1}{2}".format(current_dir, '\media\\', nombre_archivo)    
-    my_file = pd.read_csv(nombre_archivo)
-    data = pd.DataFrame(data=my_file, index=None)    
-    return data
+    my_file = pd.read_csv(nombre_archivo)    
+    return pd.DataFrame(data=my_file, index=None)
 
 def select_data(data, parameter, since, until):
     date_list, parameter_list = [], []     
@@ -59,5 +58,4 @@ def date_today():
 
 def conv_DMS_a_DD(param):
     deg, minutes, seconds, direction = param[:2], param[2:4], param[4:6], param[6]
-    result = (float(deg)+ float(minutes)/60 + float(seconds)/(60*60))*(-1 if direction in ['W', 'S'] else 1)
-    return result
+    return (float(deg)+ float(minutes)/60 + float(seconds)/(60*60))*(-1 if direction in ['W', 'S'] else 1)    
