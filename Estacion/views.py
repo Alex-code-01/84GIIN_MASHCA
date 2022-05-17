@@ -28,11 +28,16 @@ def estacion(request, codigo):
 def historico(request, codigo):   
     estacion = Estacion.objects.get(codigo=codigo)  
     date_list,  values_list, parameters_list  = [], [], []     
-    parameter, since, until = None, None, None   
+    parameter, since, until = None, None, None 
+
+    if request.user.has_perm('view_Administrador') or request.user.has_perm('view_EnteGubernamental'):
+        min_date = "hay permiso" 
+    else:
+        min_date = "no hay permiso" 
     if estacion.archivo_csv:                                          
         data = mod.read_csv_file(estacion.archivo_csv)
         parameters_list = list(data.columns[1:])
-        
+                
         since = request.GET.get('desde', mod.date_to_str(mod.date_today(), '%Y-%m-%d'))        
         until = request.GET.get('hasta', mod.date_to_str(mod.date_today(), '%Y-%m-%d'))                                 
         parameter = request.GET.get('param', parameters_list[0])
@@ -49,13 +54,14 @@ def historico(request, codigo):
         "selected": parameter,
         "desde": since,
         "hasta": until,
+        "min_date": min_date,
     } 
     return render(request, "estaciones/historico.html", context)
 
-def prediccion(request, codigo):   
+def prediccion(request, codigo):         
     estacion = Estacion.objects.get(codigo=codigo)
     context={
-        "estacion": estacion
+        "estacion": estacion,       
     } 
     return render(request, "estaciones/prediccion.html", context)
     
