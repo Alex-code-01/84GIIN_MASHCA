@@ -17,9 +17,9 @@
                 {% if estacion.archivo_csv %}                     
                     <form method="GET" action="{% url 'Historico' estacion.codigo %}">                        
                         <label for="start">Desde: </label> 
-                        <input type="date" id="desde" name="desde" value={{ desde }}  min="2010-01-01" max="2100-01-01">
+                        <input type="date" id="since" name="since" value="{{ since }}"  min="{{ min_date }}" max="{{ max_date }}">
                         <label for="start">Hasta: </label> 
-                        <input type="date" id="hasta" name="hasta" value={{ hasta }} min="2010-01-01" max="2100-01-01">                        
+                        <input type="date" id="until" name="until" value="{{ until }}" min="{{ min_date }}" max="{{ max_date}}">                        
                         <select name="param" id="param">                        
                             {% for item in parameters_list %}
                                 {% if item == selected %}

@@ -28,18 +28,20 @@ def estacion(request, codigo):
 def historico(request, codigo):   
     estacion = Estacion.objects.get(codigo=codigo)  
     date_list,  values_list, parameters_list  = [], [], []     
-    parameter, since, until = None, None, None 
+    parameter, since, until, min_date, max_date = None, None, None, None, None
 
-    if request.user.has_perm('view_Administrador') or request.user.has_perm('view_EnteGubernamental'):
-        min_date = "hay permiso" 
+    if request.user.has_perm('view_Administrador') or request.user.has_perm('view_EnteGubernamental'):        
+        min_date=None
     else:
-        min_date = "no hay permiso" 
+        min_date = mod.date_to_str(mod.add_days(mod.date_today(), -30), '%Y-%m-%d')
+        
+    max_date = mod.date_to_str(mod.add_years(mod.date_today(), 100), '%Y-%m-%d')
     if estacion.archivo_csv:                                          
         data = mod.read_csv_file(estacion.archivo_csv)
         parameters_list = list(data.columns[1:])
                 
-        since = request.GET.get('desde', mod.date_to_str(mod.date_today(), '%Y-%m-%d'))        
-        until = request.GET.get('hasta', mod.date_to_str(mod.date_today(), '%Y-%m-%d'))                                 
+        since = request.GET.get('since', mod.date_to_str(mod.date_today(), '%Y-%m-%d'))        
+        until = request.GET.get('until', mod.date_to_str(mod.date_today(), '%Y-%m-%d'))                                 
         parameter = request.GET.get('param', parameters_list[0])
         
         data_selected = mod.select_data(data, parameter, since, until)
@@ -52,9 +54,10 @@ def historico(request, codigo):
         "values_list": values_list,
         "parameters_list": parameters_list,
         "selected": parameter,
-        "desde": since,
-        "hasta": until,
+        "since": since,
+        "until": until,
         "min_date": min_date,
+        "max_date": max_date,
     } 
     return render(request, "estaciones/historico.html", context)
 

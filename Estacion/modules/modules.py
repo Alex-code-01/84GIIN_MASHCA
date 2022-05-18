@@ -1,7 +1,8 @@
 import os
 import pandas as pd
 import folium
-from datetime import datetime, timedelta
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from Estacion.models import Estacion
 
@@ -55,6 +56,12 @@ def date_to_str(date, format):
 
 def date_today():
     return datetime.today()
+
+def add_days(from_date, num_days):
+    return from_date + relativedelta(days=num_days)
+
+def add_years(from_date, num_years):
+    return from_date + relativedelta(years=num_years)
 
 def conv_DMS_a_DD(param):
     deg, minutes, seconds, direction = param[:2], param[2:4], param[4:6], param[6]
