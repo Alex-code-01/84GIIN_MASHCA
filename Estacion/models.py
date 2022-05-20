@@ -1,5 +1,3 @@
-from pyexpat import model
-from tabnanny import verbose
 from django.db import models
 from django.utils.translation import gettext as _
 

@@ -12,7 +12,7 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-10">                        
             <div class="card px-5 py-5" style="min-height: 55rem;">
-                <h1 class="titulo_pag"> Histórico {{ min_date }}</h1>
+                <h1 class="titulo_pag"> Histórico</h1>
                 <h5>{{ estacion.nombre }}</h5>                
                 {% if estacion.archivo_csv %}                     
                     <form method="GET" action="{% url 'Historico' estacion.codigo %}">                        
