@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'chartjs',
-    'WebApp',
-    'Estacion',
-    'Usuarios'
+    'apps.WebApp',
+    'apps.Estacion',
+    'apps.Usuarios'
 ]
 
 MIDDLEWARE = [

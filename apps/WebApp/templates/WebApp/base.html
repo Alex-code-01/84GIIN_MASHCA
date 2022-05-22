@@ -1,0 +1,95 @@
+<html>
+<head>
+
+    {% load static %}
+    
+    <!-- Bootstrap -->
+    <link href="{% static 'WebApp/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+     <!-- Fonts -->
+    
+     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"> 
+     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+     
+
+    <!-- Styles -->
+    <link href="{% static 'WebApp/css/gestion.css' %}" rel="stylesheet">   
+    <link href="{% static 'WebApp/css/formulario.css' %}" rel="stylesheet">   
+</head>
+
+<body>
+
+    <h1 class="site-heading text-center text-white d-none d-lg-block">      
+      <span class="site-heading-lower">MASHCA</span>
+    </h1> 
+    
+
+ <!-- Navbar -->
+ <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand text-uppercase text-expanded font-weight-white d-lg-none" href="{% url 'Home' %}">MASHCA</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item {% if request.path == '/' %}active{% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'Home' %}">Inicio</a>
+          </li>
+          <li class="nav-item {% if request.path|slice:':11' == '/estaciones' %}active{% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'Estaciones' %}">Estaciones</a>
+          </li>          
+          <li class="nav-item {% if request.path|slice:':9' == '/contacto' %}active{% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'Contacto' %}">Contacto</a>
+          </li>       
+          {% if user.is_superuser %}    
+          <li class="nav-item {% if request.path|slice:':9' == '/usuarios' %}active{% endif %} px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'Usuarios' %}">Usuarios</a>
+          </li> 
+          {% endif %}
+          {% if user.is_authenticated %}         
+          <li>
+            <a class="nav-link text-expanded" href="#">@{{ user.username }}</a>            
+          </li>  
+          <li>
+            <a class="nav-link text-expanded" href="{% url 'logout' %}">Cerrar sesión</a>
+          </li>         
+          {% else %}
+          <li>
+            <a class="nav-link text-expanded" href="{% url 'login' %}">Iniciar sesión</a>
+          </li>            
+          {% endif %}                                                            
+        </ul>                     
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido cambiante-->
+  {% block content %}
+
+  {% endblock %}
+
+    <!-- Footer -->
+    <footer class="footer text-center py-5">    
+      <div class="container">
+        <p class="m-0 mbt1">En colaboración con: </p>
+        <a href="https://www.espe.edu.ec/" target="_blank">
+          <img class="image-footer image-footer-ministerio" src="{% static 'WebApp/img/espe.png'%}">
+        </a>
+        <a href="https://www.ambiente.gob.ec/" target="_blank">
+          <img class="image-footer image-footer-ministerio" src="{% static 'WebApp/img/ministerio_ambiente.png'%}">
+        </a>
+        <a href="http://www.congope.gob.ec/" target="_blank">
+          <img class="image-footer image-footer-congope" src="{% static 'WebApp/img/congope.png'%}">
+        </a>
+        <a href="https://www.universidadviu.com/es/" target="_blank">
+          <img class="image-footer image-footer-viu" src="{% static 'WebApp/img/viu.png'%}">          
+        </a>                      
+        <p class="m-0 mbt1">&copy; MASHCA - Predicción de heladas 2022</p>
+      </div>
+	</footer>
+    <!-- Bootstrap -->
+    <script src="{% static 'WebApp/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'WebApp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

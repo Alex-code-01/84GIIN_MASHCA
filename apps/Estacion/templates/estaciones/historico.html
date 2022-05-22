@@ -1,0 +1,69 @@
+{% extends "WebApp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<title>Histórico {{estacion.codigo}}</title>
+
+<p></p>
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">                        
+            <div class="card px-5 py-5">
+                <h1 class="titulo_pag"> Histórico</h1>
+                <h5>{{ estacion.nombre }}</h5>                
+                {% if estacion.archivo_csv %}                     
+                    <form method="GET" action="{% url 'Historico' estacion.codigo %}">                        
+                        <label for="start">Desde: </label> 
+                        <input type="date" id="since" name="since" value="{{ since }}"  min="{{ min_date }}" max="{{ max_date }}">
+                        <label for="start">Hasta: </label> 
+                        <input type="date" id="until" name="until" value="{{ until }}" min="{{ min_date }}" max="{{ max_date}}">                        
+                        <select name="param" id="param">                        
+                            {% for item in parameters_list %}
+                                {% if item == selected %}
+                                    <option selected> {{ item }} </option>                                
+                                {% else %}
+                                    <option> {{ item }} </option>                                
+                                {% endif %}
+                            {% endfor %}
+                        </select>  
+                        <button type="submit" class="btn btn-success" id="buscar">Buscar</button>                                           
+                    </form>                    
+                    <canvas id="grafico_temp" width="500" height="400"></canvas>                    
+                {% else %}
+                    <p>La estación no tiene datos</p>
+                {% endif %}                
+                <a href="{% url 'Estacion' estacion.codigo %}">
+                    <button type="button" class="btn btn-success">Volver a la estación</button>        
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+<script>    
+    new Chart(document.getElementById("grafico_temp"), {
+        type: 'line',
+        data: {
+        labels:  {{ date_list | safe }},
+        datasets: [{
+            data: {{ values_list | safe }},
+            label: "",
+            borderColor: "#3e95cd",
+            fill: false        
+          }]
+        },
+        options: {
+        title: {
+            display: true,
+            text: '{{ selected | escapejs }}'
+        }
+        }
+    });
+</script>
+
+{% endblock %}
