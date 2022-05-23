@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from apps.WebApp.models import Config
+from django.core.exceptions import ObjectDoesNotExist
 from apps.Estacion.models import Estacion
+from apps.WebApp.modules.config_modules import queryConfig
 from apps.Estacion.modules import modules as mod
 
 # Create your views here.
@@ -33,13 +34,17 @@ def historico(request, codigo):
     if request.user.has_perm('view_Administrador') or request.user.has_perm('view_EnteGubernamental'):        
         min_date=None
     else:
-        min_time_value = int(Config.objects.get(parameter="historico_min_date").value)
-        min_time_unit =  Config.objects.get(parameter="historico_min_date").unit.lower()
-        min_date = mod.date_to_str(mod.add_time(mod.date_today(), -min_time_value, min_time_unit), '%Y-%m-%d')
-        
-    max_time_value = int(Config.objects.get(parameter="historico_max_date").value)
-    max_time_unit =  Config.objects.get(parameter="historico_max_date").unit.lower()
-    max_date = mod.date_to_str(mod.add_time(mod.date_today(), max_time_value, max_time_unit), '%Y-%m-%d')
+        try:
+            min_time = queryConfig("historico_min_date")        
+            min_date = mod.date_to_str(mod.add_time(mod.date_today(), -min_time[0], min_time[1]), '%Y-%m-%d')                
+        except ObjectDoesNotExist:
+            min_date = None
+    try:
+        max_time = queryConfig("historico_max_date")                 
+        max_date = mod.date_to_str(mod.add_time(mod.date_today(), max_time[0], max_time[1]), '%Y-%m-%d')    
+    except ObjectDoesNotExist:
+        max_date = None
+
     if estacion.archivo_csv:                                          
         data = mod.read_csv_file(estacion.archivo_csv)
         parameters_list = list(data.columns[1:])
