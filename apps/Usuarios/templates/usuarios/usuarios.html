@@ -4,6 +4,54 @@
 
 {% block content %}
 
-<h1>Usuarios</h1>
+<title>Usuarios</title>
+
+<p></p>
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-12">                        
+            <div class="card px-5 py-5">
+                <h1 class="titulo_pag">Usuarios</h1>  
+                <br>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thread>
+                            <tr>
+                                <th class="align-middle">Nombre de usuario</th>
+                                <th class="align-middle">Email</th>
+                                <th class="align-middle">Nombre(s)</th>
+                                <th class="align-middle">Apellidos</th>
+                                <th class="align-middle">Rol</th>
+                                <th class="align-middle">Superusuario</th>
+                                <th class="align-middle">Acciones</th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td class="align-middle">{{ user.username }}</td>
+                                    <td class="align-middle">{{ user.email }}</td>
+                                    <td class="align-middle">{{ user.nombres }}</td>
+                                    <td class="align-middle">{{ user.apellidos }}</td>
+                                    <td class="align-middle">{{ user.rol }}</td>
+                                    <td class="align-middle">{{ user.is_superuser }}</td>
+                                    <td class="align-middle">  
+                                        <div class="mb-3"> 
+                                            <a class="btn btn-sm btn-primary" href="{% url 'ModificarUsuario' %}"><p class="align-middle">Modificar</p></a>                        
+                                            <a class="btn btn-sm btn-danger" href="{% url 'EliminarUsuario' %}"><p class="align-middle">Eliminar</p></a>                        
+                                        </div>                                      
+                                    </td>                                    
+                                </tr>                        
+                        </tbody>
+                        {% endfor %}
+                    </table> 
+                    <div class="mb-3"> 
+                        <a class="btn btn-success" href="{% url 'AgregarUsuario' %}"><p class="align-middle">Agregar Usuario</p></a>                        
+                    </div>               
+                </div>                        
+            </div>
+        </div>
+    </div>
+</div>                          
 
 {% endblock %}

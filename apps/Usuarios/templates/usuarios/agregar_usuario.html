@@ -1,0 +1,30 @@
+{% extends "WebApp/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+<title>Agregar Usuario</title>
+
+<p></p>
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-12">                        
+            <div class="card px-5 py-5">
+                <h1 class="titulo_pag">Usuario</h1>
+                <form method="POST">
+                    {% csrf_token %}                      
+                    {{ form|crispy }}
+                    <div class="mb-3"> 
+                        <button type="submit" class="btn btn-success">Agregar Usuario</button>                                   
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

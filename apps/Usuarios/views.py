@@ -1,13 +1,37 @@
-from email import message
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .models import Usuario
 
 # Create your views here.
 
-def usuarios(request):    
-    return render(request, "usuarios/usuarios.html")
+def usuarios(request): 
+    usuarios = Usuario.objects.all()    
+    context = {
+        "users": usuarios        
+    }   
+    return render(request, "usuarios/usuarios.html", context)
+
+def agregar_usuario(request):
+    if request.method=='POST':
+        form = UserCreationForm()
+        if form.is_valid():            
+            user=form.save()
+            login(request, user)                         
+    else:
+        form = UserCreationForm()
+
+    context = {
+        "form": form
+    }
+    return render(request, "usuarios/agregar_usuario.html", context)    
+
+def modificar_usuario(request):    
+    return render(request, "usuarios/modificar_usuario.html")    
+
+def eliminar_usuario(request):
+    return render(request, "usuarios/eliminar_usuario.html")    
 
 def login_view(request):
     if request.method=='POST':
