@@ -1,5 +1,5 @@
 from multiprocessing import context
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -8,6 +8,3 @@ def home(request):
 
 def contacto(request):
     return render(request, "WebApp/contacto.html")
-
-def login(request):
-    return render(request, "WebApp/login.html")
