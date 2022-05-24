@@ -22,7 +22,7 @@
                     <br>
                     {% if messages %}                    
                         {% for message in messages %}                                                     
-                        <div class="alert alert-danger center" style="text-align:center" role="alert">
+                        <div class="alert alert-{{message.tags}} center" style="text-align:center" role="alert">
                             {{ message }}
                         </div>                                                                                                                                 
                         {% endfor %}                    
