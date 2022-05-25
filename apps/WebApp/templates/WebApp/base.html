@@ -9,12 +9,12 @@
      <!-- Fonts -->
     
      <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"> 
-     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">     
      
 
     <!-- Styles -->
     <link href="{% static 'WebApp/css/gestion.css' %}" rel="stylesheet">   
-    <link href="{% static 'WebApp/css/formulario.css' %}" rel="stylesheet">   
+    <link href="{% static 'WebApp/css/formulario.css' %}" rel="stylesheet">           
 </head>
 
 <body>
@@ -63,11 +63,20 @@
       </div>
     </div>
   </nav>
+   <!-- Bootstrap -->
+   <script src="{% static 'WebApp/vendor/jquery/jquery.min.js' %}"></script>
+   <script src="{% static 'WebApp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Contenido cambiante-->
-  {% block content %}
-
+  {% block js %}
   {% endblock %}
+
+  {% block content %}
+  {% endblock %}
+
+       
+</body>
 
     <!-- Footer -->
     <footer class="footer text-center py-5">    
@@ -88,8 +97,5 @@
         <p class="m-0 mbt1">&copy; MASHCA - Predicción de heladas 2022</p>
       </div>
 	</footer>
-    <!-- Bootstrap -->
-    <script src="{% static 'WebApp/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'WebApp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-</body>
+
 </html>

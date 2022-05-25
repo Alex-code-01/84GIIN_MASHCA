@@ -2,6 +2,29 @@
 
 {% load static %}
 
+{% block js %}
+<script>
+    function eliminarUsuario(id) {
+        Swal.fire({
+            "title": "¿Está seguro?",
+            "text": "esta acción no se puede deshacer",
+            "icon": "warning",
+            "showCancelButton": true,
+            "cancelButtonText": "No, cancelar",
+            "confirmButtonText": "Si, eliminar",
+            "confirmBottonColor": "#dc3545",
+            "reverseButtons": true            
+        })
+        .then(function(result) {
+            if(result.isConfirmed){                   
+                window.location.href = "/usuarios/eliminar_usuario/"+id                
+            }
+            console.log(window.location.href)
+        })
+    }
+</script>
+{% endblock %}
+
 {% block content %}
 
 <title>Usuarios</title>
@@ -37,8 +60,8 @@
                                     <td class="align-middle">{{ user.is_superuser }}</td>
                                     <td class="align-middle">  
                                         <div class="mb-3"> 
-                                            <a class="btn btn-sm btn-primary" href="{% url 'ModificarUsuario' %}"><p class="align-middle">Modificar</p></a>                        
-                                            <a class="btn btn-sm btn-danger" href="{% url 'EliminarUsuario' user.username %}"><p class="align-middle">Eliminar</p></a>                        
+                                            <a class="btn btn-sm btn-primary" href="{% url 'ModificarUsuario' user.id %}"><p class="align-middle">Modificar</p></a>                        
+                                            <a href="#" onclick="eliminarUsuario({{ user.id }})" class="btn btn-sm btn-danger"><p class="align-middle">Eliminar</p></a>                        
                                         </div>                                      
                                     </td>                                    
                                 </tr>                        
@@ -47,9 +70,13 @@
                     </table> 
                     {% if messages %}                    
                         {% for message in messages %}                                                     
-                        <div class="alert alert-{{message.tags}} center" style="text-align:center" role="alert">
-                            {{ message }}
-                        </div>                                                                                                                                                        
+                        <script>
+                            Swal.fire({
+                                "title": "Felicitaciones",
+                                "text": "{{message}}",
+                                "icon": "success"
+                            })
+                        </script>                                                                                                                                                                                                      
                         {% endfor %}                    
                     {% endif %}
                     <div class="mb-3"> 

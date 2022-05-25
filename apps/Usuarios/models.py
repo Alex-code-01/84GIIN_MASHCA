@@ -71,15 +71,15 @@ class UsuarioManager(BaseUserManager):
         return usuario
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField('Nombre de usuario', unique=True, max_length=100)
+    username = models.CharField('Nombre de usuario', unique=True, max_length=100)    
     email = models.EmailField('Correo Electrónico', unique=True, max_length=254)
     nombres = models.CharField('Nombre(s)', max_length=200, blank=True, null=True)
     apellidos = models.CharField('Apellidos', max_length=200, blank=True, null=True)
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE, blank=True, null=True)
     imagen = models.ImageField('Imagen de perfil', upload_to=usuario_directory_path, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField('Activo', default=True)
+    is_staff = models.BooleanField('Miembro', default=False)
+    is_superuser = models.BooleanField('Superusuario', default=False)
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'username'
