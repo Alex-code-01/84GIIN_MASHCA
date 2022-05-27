@@ -3,7 +3,7 @@ from django.utils.translation import gettext as _
 
 # Create your models here.
 
-class Config(models.Model):
+class ConfigDate(models.Model):
     class UnitChoices(models.TextChoices):
         dias = 'dias',
         meses = 'meses',
@@ -15,8 +15,8 @@ class Config(models.Model):
     unit = models.CharField(_("unidad"), max_length=255, choices=UnitChoices.choices, default=UnitChoices.dias)
 
     class Meta:
-        verbose_name='configuracion'
-        verbose_name_plural='configuraciones'
+        verbose_name='configuracion_fecha'
+        verbose_name_plural='configuraciones_Fechas'
 
     def __str__(self) -> str:
         return "{}: {} {}".format(self.parameter, self.value, self.unit)

@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from apps.Estacion.models import Estacion
+from .models import Estacion
+from .modules import modules as mod
 from apps.WebApp.modules.config_modules import queryConfig
-from apps.Estacion.modules import modules as mod
+from .prediction_models import Read_data as rd, one_station_model_window_model as pred_model
 
 # Create your views here.
 
@@ -72,6 +73,7 @@ def historico(request, codigo):
 
 def prediccion(request, codigo):         
     estacion = Estacion.objects.get(codigo=codigo)
+    rd.main()
     context={
         "estacion": estacion,       
     } 

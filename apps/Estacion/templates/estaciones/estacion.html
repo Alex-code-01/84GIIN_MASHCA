@@ -15,7 +15,7 @@
                 <h1 class="titulo_pag" style="text-align: center;">{{estacion.codigo}}</h1>   
                 <br>           
                 <h4 style="text-align: center;">{{estacion.nombre }}</h4>  
-                <br>   
+                <br>                 
                 <p class="card-text">                        
                     Provincia: {{estacion.provincia}}
                     <br>
@@ -30,12 +30,14 @@
                     Longitud: {{estacion.longitud}}                
                 </p>
                 <br>
-                <a href="{% url 'Historico' codigo=estacion.codigo %}">
-                    <button type="button" class="btn btn-success">Datos Históricos</button>
-                </a>    
-                <a href="{% url 'Prediccion' estacion.codigo %}">
-                    <button type="button" class="btn btn-success">Predicciones</button>        
-                </a>                                        
+                <center>                
+                    <a href="{% url 'Historico' codigo=estacion.codigo %}">
+                        <button type="button" class="btn btn-success">Datos Históricos</button>
+                    </a>    
+                    <a href="{% url 'Prediccion' estacion.codigo %}">
+                        <button type="button" class="btn btn-success">Predicciones</button>        
+                    </a>                                        
+                </center>
             </div>
         </div>
     </div>

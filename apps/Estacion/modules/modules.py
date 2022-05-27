@@ -3,7 +3,7 @@ import pandas as pd
 import folium
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from apps.WebApp.models import Config
+from apps.WebApp.models import ConfigDate
 from apps.Estacion.models import Estacion
 
 def represent_map(pais, zoom):
@@ -58,13 +58,13 @@ def date_today():
     return datetime.today()
 
 def add_time(from_date, value, unit):
-    if unit == Config.UnitChoices.dias.lower():
+    if unit == ConfigDate.UnitChoices.dias.lower():
         date = from_date + relativedelta(days=value)
-    elif unit == Config.UnitChoices.semanas.lower():
+    elif unit == ConfigDate.UnitChoices.semanas.lower():
         date = from_date + relativedelta(weeks=value)
-    elif unit == Config.UnitChoices.meses.lower():
+    elif unit == ConfigDate.UnitChoices.meses.lower():
         date = from_date + relativedelta(months=value)
-    elif unit == Config.UnitChoices.annos.lower():
+    elif unit == ConfigDate.UnitChoices.annos.lower():
         date = from_date + relativedelta(years=value)
     else:
         date = None

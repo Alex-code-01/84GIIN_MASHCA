@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Config
+from .models import ConfigDate
 
 # Register your models here.
 
-admin.site.register(Config)
+admin.site.register(ConfigDate)

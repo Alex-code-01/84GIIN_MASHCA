@@ -15,7 +15,7 @@
                 <h1 class="titulo_pag"> Histórico</h1>
                 <h5>{{ estacion.nombre }}</h5>                
                 {% if estacion.archivo_csv %}                     
-                    <form method="GET" action="{% url 'Historico' estacion.codigo %}">                        
+                    <form method="GET" action="{% url 'Historico' estacion.codigo %}">                          
                         <label for="start">Desde: </label> 
                         <input type="date" id="since" name="since" value="{{ since }}"  min="{{ min_date }}" max="{{ max_date }}">
                         <label for="start">Hasta: </label> 
@@ -28,16 +28,18 @@
                                     <option> {{ item }} </option>                                
                                 {% endif %}
                             {% endfor %}
-                        </select>  
-                        <button type="submit" class="btn btn-success" id="buscar">Buscar</button>                                           
+                        </select> 
+                        <button type="submit" class="btn btn-success" id="buscar">Buscar</button>                                                                                    
                     </form>                    
                     <canvas id="grafico_temp" width="500" height="400"></canvas>                    
                 {% else %}
                     <p>La estación no tiene datos</p>
-                {% endif %}                
-                <a href="{% url 'Estacion' estacion.codigo %}">
-                    <button type="button" class="btn btn-success">Volver a la estación</button>        
-                </a>
+                {% endif %}  
+                <div class="text-right">              
+                    <a href="{% url 'Estacion' estacion.codigo %}">
+                        <button type="button" class="btn btn-success">Volver a la estación</button>        
+                    </a>
+                </div>
             </div>
         </div>
     </div>
