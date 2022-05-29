@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -73,7 +74,8 @@ def historico(request, codigo):
 
 def prediccion(request, codigo):         
     estacion = Estacion.objects.get(codigo=codigo)
-    rd.main()
+    archivo = os.path.join(os.getcwd(), "media", str(estacion.archivo_csv))
+    pred_model.main(archivo)
     context={
         "estacion": estacion,       
     } 
