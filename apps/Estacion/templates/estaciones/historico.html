@@ -16,11 +16,12 @@
                 <h5>{{ estacion.nombre }}</h5>                
                 {% if estacion.archivo_csv %}                     
                     <form method="GET" action="{% url 'Historico' estacion.codigo %}">                          
-                        <label for="start">Desde: </label> 
-                        <input type="date" id="since" name="since" value="{{ since }}"  min="{{ min_date }}" max="{{ max_date }}">
-                        <label for="start">Hasta: </label> 
-                        <input type="date" id="until" name="until" value="{{ until }}" min="{{ min_date }}" max="{{ max_date}}">                        
-                        <select name="param" id="param">                        
+                        <label for="since">Desde: </label> 
+                        <input class="form-control" type="date" id="since" name="since" value="{{ since }}"  min="{{ min_date }}" max="{{ max_date }}">
+                        <label for="until">Hasta: </label> 
+                        <input class="form-control" type="date" id="until" name="until" value="{{ until }}" min="{{ min_date }}" max="{{ max_date}}">                        
+                        <label for="param">Parámetro: </label> 
+                        <select name="param" id="param" class="form-control">                        
                             {% for item in parameters_list %}
                                 {% if item == selected %}
                                     <option selected> {{ item }} </option>                                
@@ -28,12 +29,18 @@
                                     <option> {{ item }} </option>                                
                                 {% endif %}
                             {% endfor %}
-                        </select> 
-                        <button type="submit" class="btn btn-success" id="buscar">Buscar</button>                                                                                    
-                    </form>                    
-                    <canvas id="grafico_temp" width="500" height="400"></canvas>                    
+                        </select>  
+                        <div class="text-right">                       
+                            <button type="submit" class="btn btn-success" id="buscar">Buscar</button>                         
+                        </div>
+                    </form> 
+                    {% if date_list %}                   
+                        <canvas id="grafico_temp" width="500" height="400"></canvas>                    
+                    {% else %}
+                        <p>Entre {{since}} y {{until}} no hay datos históricos</p>
+                    {% endif %}
                 {% else %}
-                    <p>La estación no tiene datos</p>
+                    <p>La estación no tiene datos históricos</p>
                 {% endif %}  
                 <div class="text-right">              
                     <a href="{% url 'Estacion' estacion.codigo %}">
