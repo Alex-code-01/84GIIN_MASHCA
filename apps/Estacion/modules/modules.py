@@ -25,10 +25,9 @@ def locate_estaciones(map, estaciones):
     return map
 
 def read_csv_file(nombre_archivo):    
-    global rows, columns, data, missing_values, my_file
-    current_dir = os.getcwd()
-    nombre_archivo = "{0}{1}{2}".format(current_dir, '\media\\', nombre_archivo)    
-    my_file = pd.read_csv(nombre_archivo)    
+    global my_file
+    archivo = os.path.join(os.getcwd(), "media", str(nombre_archivo))
+    my_file = pd.read_csv(archivo)    
     return pd.DataFrame(data=my_file, index=None)
 
 def select_data(data, parameter, since, until):
