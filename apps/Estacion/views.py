@@ -36,9 +36,7 @@ def estacion(request, codigo):
     try: 
         if request.method == 'POST':            
             if not suscribed:                        
-                suscription = EstacionSuscripcion()
-                suscription.usuario = user
-                suscription.estacion = estacion        
+                suscription = EstacionSuscripcion(usuario=user, estacion=estacion)                                       
                 suscription.save()      
                 #enviar confirmación
                 subject = f"Suscripción a la estación {estacion.nombre}" 

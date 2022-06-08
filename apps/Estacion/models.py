@@ -32,7 +32,7 @@ class Estacion(models.Model):
         verbose_name_plural='estaciones'
 
     def __str__(self):
-        return "{0} : {1}".format(self.codigo, self.nombre)
+        return f"{self.codigo}: {self.nombre}"        
 
 class EstacionSuscripcion(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
@@ -44,4 +44,4 @@ class EstacionSuscripcion(models.Model):
         unique_together = (("usuario", "estacion"),)
 
     def __str__(self):
-        return "{0} : {1}".format(self.usuario.email, self.estacion.nombre)
+        return f"{self.usuario.email}: {self.estacion.nombre}"        

@@ -15,8 +15,20 @@ class ConfigDate(models.Model):
     unit = models.CharField(_("unidad"), max_length=255, choices=UnitChoices.choices, default=UnitChoices.dias)
 
     class Meta:
-        verbose_name='configuracion_fecha'
-        verbose_name_plural='configuraciones_Fechas'
+        verbose_name='Configuracion_Fecha'
+        verbose_name_plural='Configuraciones_Fechas'
 
     def __str__(self) -> str:
-        return "{}: {} {}".format(self.parameter, self.value, self.unit)
+        return f"{self.parameter}: {self.value} {self.unit}"        
+
+class ContactForm(models.Model):
+    name = models.CharField("Nombre", max_length=255) 
+    email = models.EmailField('Correo Electrónico', max_length=255)
+    message = models.CharField("Mensaje", max_length=500)
+
+    class Meta:
+        verbose_name='Contacto_Mensaje'
+        verbose_name_plural='Contacto_Mensajes'
+    
+    def __str__(self) -> str:
+        return f"{self.email}: {self.message}"
