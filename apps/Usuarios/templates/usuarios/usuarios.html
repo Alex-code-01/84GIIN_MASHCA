@@ -69,14 +69,16 @@
                         {% endfor %}
                     </table> 
                     {% if messages %}                    
-                        {% for message in messages %}                                                     
-                        <script>
-                            Swal.fire({
-                                "title": "Felicitaciones",
-                                "text": "{{message}}",
-                                "icon": "success"
-                            })
-                        </script>                                                                                                                                                                                                      
+                        {% for message in messages %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}                                                     
+                                <script>
+                                    Swal.fire({
+                                        "title": "Felicitaciones",
+                                        "text": "{{message}}",
+                                        "icon": "success"
+                                    })
+                                </script>                                                                                                                                                                                                      
+                            {% endif %}
                         {% endfor %}                    
                     {% endif %}
                     <div class="text-right mb-3"> 

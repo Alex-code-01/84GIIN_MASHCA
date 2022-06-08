@@ -9,13 +9,14 @@
 <p></p>
 <div class="container mt-5">
     <div class="row d-flex justify-content-center">
-        <div class="card" style="width: 24rem;">        
+        <div class="card" style="width: 27rem;">        
             <div class="card-body">
                 <br>
                 <h1 class="titulo_pag" style="text-align: center;">{{estacion.codigo}}</h1>   
                 <br>           
                 <h4 style="text-align: center;">{{estacion.nombre }}</h4>  
                 <br>                 
+                
                 <p class="card-text">                        
                     Provincia: {{estacion.provincia}}
                     <br>
@@ -30,14 +31,25 @@
                     Longitud: {{estacion.longitud}}                
                 </p>
                 <br>
-                <center>                
-                    <a href="{% url 'Historico' codigo=estacion.codigo %}">
-                        <button type="button" class="btn btn-success">Datos Históricos</button>
-                    </a>    
-                    <!--<a href="{% url 'Prediccion' estacion.codigo %}">-->
-                    <a href="https://github.com/tamaramegan/frost_prediction_ml/blob/main/One_station_model_window_model.ipynb">
-                        <button type="button" class="btn btn-success">Predicciones</button>        
-                    </a>                                        
+                {% if messages %}                    
+                    {% for message in messages %}                                                     
+                    <div class="alert alert-{{message.tags}} center" style="text-align:center" role="alert">
+                        {{ message }}
+                    </div>                                                                                                                                 
+                    {% endfor %}                    
+                {% endif %}
+                <center>                                    
+                    <form method="POST"> 
+                        <a href="{% url 'Historico' codigo=estacion.codigo %}">
+                            <button type="button" class="btn btn-success">Datos Históricos</button>
+                        </a> 
+                        {% csrf_token %}  
+                        <button type="submit" class="btn btn-success">{{ sus_butt_text }}</button>
+                        <!--<a href="{% url 'Prediccion' estacion.codigo %}">-->
+                        <a href="https://github.com/tamaramegan/frost_prediction_ml/blob/main/One_station_model_window_model.ipynb">
+                            <button type="button" class="btn btn-success">Predicciones</button>        
+                        </a> 
+                    </form>                                                                                       
                 </center>
             </div>
         </div>

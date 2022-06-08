@@ -1,8 +1,12 @@
 import os
-from django.shortcuts import render
+from django.conf import settings
+from django.db import IntegrityError
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Estacion
+from .models import Estacion, EstacionSuscripcion
 from .modules import modules as mod
 from apps.WebApp.modules.config_modules import queryConfig
 from .prediction_models import Read_data as rd, one_station_model_window_model as pred_model
@@ -23,8 +27,37 @@ def estaciones(request):
 
 def estacion(request, codigo):
     estacion = Estacion.objects.get(codigo=codigo)
+    suscriptions = EstacionSuscripcion.objects.all()
+    user, suscribed, suscribe_butt = request.user, False, "Suscribir"         
+    for sus in suscriptions:
+        if sus.usuario == user and sus.estacion == estacion:
+            suscribed = True
+            suscribe_butt = "Desuscribir"
+    try: 
+        if request.method == 'POST':            
+            if not suscribed:                        
+                suscription = EstacionSuscripcion()
+                suscription.usuario = user
+                suscription.estacion = estacion        
+                suscription.save()      
+                #enviar confirmación
+                subject = f"Suscripción a la estación {estacion.nombre}" 
+                message = f"Hola, {user.username},\nSe acaba de suscribir a la estación {estacion.nombre}"
+                from_email = settings.EMAIL_HOST_USER            
+                #send_mail(subject, message, from_email, [request.user.email])
+                messages.success(request, f"Se ha suscrito a la estación")
+                return redirect('Estacion', estacion.codigo)
+            else:
+                suscription  = EstacionSuscripcion.objects.get(usuario=user, estacion=estacion)
+                suscription.delete()
+                messages.success(request, f"Se ha desuscrito de la estación")
+                return redirect('Estacion', estacion.codigo)
+    except IntegrityError:
+        messages.warning(request, f"Ya está suscrito a la estación")        
+        
     context={
-        "estacion": estacion
+        "estacion": estacion,
+        "sus_butt_text": suscribe_butt
     }
     return render(request, "estaciones/estacion.html", context)
 

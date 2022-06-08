@@ -1,5 +1,9 @@
+from enum import unique
+from pyexpat import model
 from django.db import models
 from django.utils.translation import gettext as _
+
+from apps.Usuarios.models import Usuario
 
 # Create your models here.
 
@@ -29,3 +33,15 @@ class Estacion(models.Model):
 
     def __str__(self):
         return "{0} : {1}".format(self.codigo, self.nombre)
+
+class EstacionSuscripcion(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    estacion = models.ForeignKey(Estacion, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name='suscripcion'
+        verbose_name_plural='suscripciones'
+        unique_together = (("usuario", "estacion"),)
+
+    def __str__(self):
+        return "{0} : {1}".format(self.usuario.email, self.estacion.nombre)
