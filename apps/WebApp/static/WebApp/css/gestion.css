@@ -315,3 +315,6 @@ ul.errorlist{
   padding: 2px;
 }
 
+textarea{
+  resize: none;
+}

@@ -12,7 +12,7 @@ def represent_map(pais, zoom):
     """
     Returns a map located in the country and with the zoom specified
     Atributes:
-        pais -> String specifying the country in wich the map is located initially
+        pais -> List [latitude, longitude] in Degrees Decimal (DD) format
         zoom -> Float value that specifies the zoom in or zoom out
     """
     return folium.Map(location=pais, zoom_start=zoom)    
@@ -22,7 +22,7 @@ def locate_estaciones(map, estaciones):
     Returns a map locating all the estations specified
     Atributes:
         map -> Map represented in the HTML file
-        estaciones -> QuerySet of the stations stored in the DataBase
+        estaciones -> QuerySet or List of the stations stored in the DataBase
     """
     for e in estaciones:               
         if e.formato==Estacion.FormatoChoices.DEG_MIN_SEC:
@@ -51,7 +51,9 @@ def read_csv_file(nombre_archivo):
 
 def select_data(data, parameter, since, until):
     """
-    Returns two lists containing the timeline (date_list) and the data (parameter_list) between the dates specified
+    Returns two lists containing the timeline (date_list)
+    and the data (parameter_list) between the since and 
+    until dates specified
     Atributes:
         data -> data to select from
         parameter -> parameter to select from the data (Example: "Temperature")
@@ -82,7 +84,7 @@ def convert_data(data, type):
 
 def str_to_date(date, format):
     """
-    Returns Date object of a String object
+    Returns Date object of a String object (input)
     Atributes:
         date -> String object to convert
         format -> Format to convert the string to Date (Example: '%Y-%m-%d')
@@ -100,7 +102,7 @@ def date_to_str(date, format):
 
 def date_today():
     """
-    Returns the current date
+    Returns current date
     """
     return datetime.today()
 
